@@ -1,7 +1,8 @@
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { ICONS_CATALOG } from '../data/icons';
 import { KineticIcon } from './KineticIcon';
 import { SiteHeader, type SitePage } from './SiteHeader';
+import { DODO_CHECKOUT_URL, SupportCheckoutEmbed } from './SupportCheckout';
 
 interface PricingPageProps {
   isDark: boolean;
@@ -11,13 +12,6 @@ interface PricingPageProps {
   onDownloadZip: () => void;
   onToast: (message: string) => void;
 }
-
-const SUPPORT_PRESETS = [
-  { amount: 5, label: 'Buy a coffee' },
-  { amount: 15, label: 'Fuel an icon drop' },
-  { amount: 35, label: 'Indie supporter' },
-  { amount: 75, label: 'Foundry sponsor' },
-] as const;
 
 const INCLUDED_FEATURES = [
   `All ${ICONS_CATALOG.length} original Kinetic icons`,
@@ -82,33 +76,6 @@ export function PricingPage({
   onToast,
 }: PricingPageProps) {
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
-  const [selectedPreset, setSelectedPreset] = useState<number | 'custom'>(15);
-  const [customAmount, setCustomAmount] = useState('25');
-  const [supporterNote, setSupporterNote] = useState('');
-  const [amountError, setAmountError] = useState('');
-  const [pledgedAmount, setPledgedAmount] = useState<number | null>(null);
-
-  const activeAmount =
-    selectedPreset === 'custom'
-      ? Number.parseFloat(customAmount) || 0
-      : selectedPreset;
-
-  const activePresetMeta =
-    selectedPreset === 'custom'
-      ? 'Custom one-time support'
-      : SUPPORT_PRESETS.find((p) => p.amount === selectedPreset)?.label ?? '';
-
-  const handleSupportSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!Number.isFinite(activeAmount) || activeAmount < 1) {
-      setAmountError('Please enter an amount of at least $1.');
-      return;
-    }
-    setAmountError('');
-    const rounded = Math.round(activeAmount * 100) / 100;
-    setPledgedAmount(rounded);
-    onToast(`Thank you for supporting Kinetic with $${rounded}!`);
-  };
 
   const handleShare = async () => {
     await copyShareUrl();
@@ -142,21 +109,18 @@ export function PricingPage({
           </p>
         </div>
 
-        {/* 2-Column Asymmetric Grid: $0 Free Forever + Support the Creator */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          {/* Primary Card: $0 Free Forever */}
-          <section className="lg:col-span-7 rounded-2xl bg-kinetic-card border-2 border-kinetic-ink p-6 sm:p-8 flex flex-col justify-between">
+        {/* Full-Width Free Forever Card */}
+        <section className="mt-12 rounded-2xl bg-kinetic-card border-2 border-kinetic-ink p-6 sm:p-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <div className="flex items-baseline justify-between gap-4">
-                <h2 className="text-base font-semibold text-kinetic-ink">
+              <div className="flex items-center gap-2 text-xs font-medium text-kinetic-muted">
+                <span className="font-semibold text-kinetic-ink">
                   Kinetic Open Source
-                </h2>
-                <span className="text-xs font-medium text-kinetic-muted">
-                  MIT License
                 </span>
+                <span aria-hidden="true">·</span>
+                <span>MIT License</span>
               </div>
-
-              <div className="mt-5 flex items-baseline gap-2 tabular-nums">
+              <div className="mt-3 flex items-baseline gap-2 tabular-nums">
                 <span className="text-5xl sm:text-6xl font-bold tracking-tight text-kinetic-ink">
                   $0
                 </span>
@@ -164,33 +128,17 @@ export function PricingPage({
                   / free forever
                 </span>
               </div>
-
-              <p className="mt-3 text-sm text-kinetic-muted leading-relaxed">
+              <p className="mt-2.5 text-sm text-kinetic-muted max-w-xl leading-relaxed">
                 Full access to the entire library, live stroke and corner-radius
                 controls, and multi-framework code exports from day one.
               </p>
-
-              <ul className="mt-7 pt-7 border-t border-kinetic-border grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3.5 text-sm text-kinetic-ink">
-                {INCLUDED_FEATURES.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2.5">
-                    <KineticIcon
-                      id="check"
-                      size={16}
-                      strokeWidth={1.9}
-                      radius={2.5}
-                      className="mt-0.5 shrink-0 text-kinetic-ink"
-                    />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-kinetic-border flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
               <button
                 type="button"
                 onClick={onOpenStudio}
-                className="flex-1 h-11 px-5 rounded-xl bg-kinetic-ink text-kinetic-bg text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer"
+                className="h-11 px-5 rounded-xl bg-kinetic-ink text-kinetic-bg text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer"
               >
                 <span>Open Icon Studio</span>
                 <KineticIcon
@@ -214,220 +162,83 @@ export function PricingPage({
                 <span>Download ZIP</span>
               </button>
             </div>
-          </section>
+          </div>
 
-          {/* Complementary Card: Support the Creator */}
-          <section className="lg:col-span-5 rounded-2xl bg-kinetic-card border border-kinetic-border p-6 sm:p-8 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-2.5">
-                <span className="w-9 h-9 rounded-xl bg-kinetic-bg border border-kinetic-border inline-flex items-center justify-center text-kinetic-ink shrink-0">
-                  <KineticIcon
-                    id="heart"
-                    size={18}
-                    strokeWidth={1.7}
-                    radius={2.5}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-base font-semibold text-kinetic-ink">
-                    Support the Creator
-                  </h2>
-                  <p className="text-xs text-kinetic-muted">
-                    100% optional · Fuels future icon drops
-                  </p>
-                </div>
-              </div>
+          <ul className="mt-7 pt-7 border-t border-kinetic-border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3.5 text-xs sm:text-sm text-kinetic-ink">
+            {INCLUDED_FEATURES.map((feature) => (
+              <li key={feature} className="flex items-start gap-2.5">
+                <KineticIcon
+                  id="check"
+                  size={15}
+                  strokeWidth={1.9}
+                  radius={2.5}
+                  className="mt-0.5 shrink-0 text-kinetic-ink"
+                />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-              <p className="mt-4 text-sm text-kinetic-muted leading-relaxed">
-                Kinetic is independently designed and maintained. If the library
-                saves you hours or ships in your product, consider supporting
-                its ongoing craft.
-              </p>
-
-              {pledgedAmount !== null ? (
-                <div className="mt-6 pt-6 border-t border-kinetic-border space-y-4">
-                  <div className="flex items-start gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-kinetic-ink text-kinetic-bg inline-flex items-center justify-center shrink-0 mt-0.5">
-                      <KineticIcon
-                        id="check"
-                        size={16}
-                        strokeWidth={2}
-                        radius={2.5}
-                      />
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-kinetic-ink tabular-nums">
-                        Thank you for pledging ${pledgedAmount}
-                      </p>
-                      <p className="mt-1 text-xs text-kinetic-muted leading-relaxed">
-                        Your support keeps Kinetic open source, ad-free, and
-                        constantly growing for builders everywhere.
-                        {supporterNote.trim()
-                          ? ` Note saved: "${supporterNote.trim()}"`
-                          : ''}
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setPledgedAmount(null);
-                      setSupporterNote('');
-                    }}
-                    className="w-full h-10 rounded-xl bg-kinetic-bg border border-kinetic-border text-kinetic-ink text-xs font-semibold hover:border-kinetic-ink transition-colors cursor-pointer"
-                  >
-                    Send Another Contribution
-                  </button>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSupportSubmit}
-                  className="mt-6 pt-6 border-t border-kinetic-border space-y-4"
-                  noValidate
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-xs font-semibold text-kinetic-ink">
-                        Choose an amount
-                      </span>
-                      <span className="text-xs text-kinetic-muted">
-                        {activePresetMeta}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-5 gap-1.5">
-                      {SUPPORT_PRESETS.map((preset) => {
-                        const isActive = selectedPreset === preset.amount;
-                        return (
-                          <button
-                            key={preset.amount}
-                            type="button"
-                            onClick={() => {
-                              setSelectedPreset(preset.amount);
-                              setAmountError('');
-                            }}
-                            className={`h-10 rounded-lg text-xs font-semibold tabular-nums transition-colors cursor-pointer ${
-                              isActive
-                                ? 'bg-kinetic-ink text-kinetic-bg'
-                                : 'bg-kinetic-bg border border-kinetic-border text-kinetic-ink hover:border-kinetic-ink'
-                            }`}
-                          >
-                            ${preset.amount}
-                          </button>
-                        );
-                      })}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSelectedPreset('custom');
-                          setAmountError('');
-                        }}
-                        className={`h-10 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
-                          selectedPreset === 'custom'
-                            ? 'bg-kinetic-ink text-kinetic-bg'
-                            : 'bg-kinetic-bg border border-kinetic-border text-kinetic-ink hover:border-kinetic-ink'
-                        }`}
-                      >
-                        Other
-                      </button>
-                    </div>
-                  </div>
-
-                  {selectedPreset === 'custom' && (
-                    <div>
-                      <label htmlFor="custom-support-amount" className="sr-only">
-                        Custom support amount in USD
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-medium text-kinetic-muted">
-                          $
-                        </span>
-                        <input
-                          id="custom-support-amount"
-                          type="number"
-                          min="1"
-                          step="1"
-                          value={customAmount}
-                          onChange={(e) => {
-                            setCustomAmount(e.target.value);
-                            if (amountError) setAmountError('');
-                          }}
-                          placeholder="25"
-                          className="w-full h-10 pl-7 pr-3.5 rounded-xl bg-kinetic-bg border border-kinetic-border text-sm text-kinetic-ink tabular-nums placeholder-kinetic-muted focus:outline-none focus:border-kinetic-ink transition-colors"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div>
-                    <label htmlFor="supporter-note" className="sr-only">
-                      Optional note or social handle
-                    </label>
-                    <input
-                      id="supporter-note"
-                      type="text"
-                      value={supporterNote}
-                      onChange={(e) => setSupporterNote(e.target.value)}
-                      placeholder="Leave a note or @handle (optional)"
-                      className="w-full h-10 px-3.5 rounded-xl bg-kinetic-bg border border-kinetic-border text-xs sm:text-sm text-kinetic-ink placeholder-kinetic-muted focus:outline-none focus:border-kinetic-ink transition-colors"
-                    />
-                  </div>
-
-                  {amountError && (
-                    <p className="text-xs text-rose-600 dark:text-rose-400">
-                      {amountError}
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
-                    className="w-full h-11 px-4 rounded-xl bg-kinetic-ink text-kinetic-bg text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity tabular-nums cursor-pointer"
-                  >
-                    <KineticIcon
-                      id="gift"
-                      size={15}
-                      strokeWidth={1.8}
-                      radius={2.5}
-                    />
-                    <span>
-                      Support with $
-                      {activeAmount > 0 ? activeAmount : '—'}
-                    </span>
-                  </button>
-                </form>
-              )}
-            </div>
-
-            {/* Free ways to help */}
-            <div className="mt-6 pt-5 border-t border-kinetic-border flex items-center justify-between gap-3">
-              <span className="text-xs text-kinetic-muted">
-                Want to help for free?
+        {/* Full-Width Support the Creator Embedded Checkout Card */}
+        <section
+          id="support"
+          className="mt-8 rounded-2xl bg-kinetic-card border border-kinetic-border overflow-hidden"
+        >
+          <div className="px-6 py-5 sm:px-8 sm:py-6 border-b border-kinetic-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-3">
+              <span className="w-10 h-10 rounded-xl bg-kinetic-bg border border-kinetic-border inline-flex items-center justify-center text-kinetic-ink shrink-0">
+                <KineticIcon
+                  id="heart"
+                  size={18}
+                  strokeWidth={1.7}
+                  radius={2.5}
+                />
               </span>
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={handleShare}
-                  className="h-9 px-3 rounded-lg bg-kinetic-bg border border-kinetic-border text-xs font-semibold text-kinetic-ink inline-flex items-center gap-1.5 hover:border-kinetic-ink transition-colors whitespace-nowrap cursor-pointer"
-                >
-                  <KineticIcon
-                    id="share"
-                    size={13}
-                    strokeWidth={1.8}
-                    radius={2.5}
-                  />
-                  <span>Share Link</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('docs')}
-                  className="h-9 px-3 rounded-lg text-xs font-semibold text-kinetic-muted hover:text-kinetic-ink transition-colors whitespace-nowrap cursor-pointer"
-                >
-                  Docs
-                </button>
+              <div>
+                <h2 className="text-base sm:text-lg font-semibold text-kinetic-ink">
+                  Support the Creator
+                </h2>
+                <p className="text-xs sm:text-sm text-kinetic-muted">
+                  100% optional · Independently designed and maintained in the
+                  open.
+                </p>
               </div>
             </div>
-          </section>
-        </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={handleShare}
+                className="h-9 px-3 rounded-xl bg-kinetic-bg border border-kinetic-border text-xs font-semibold text-kinetic-ink inline-flex items-center gap-1.5 hover:border-kinetic-ink transition-colors whitespace-nowrap cursor-pointer"
+              >
+                <KineticIcon
+                  id="share"
+                  size={13}
+                  strokeWidth={1.8}
+                  radius={2.5}
+                />
+                <span>Share Link</span>
+              </button>
+              <a
+                href={DODO_CHECKOUT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 px-3 rounded-xl bg-kinetic-bg border border-kinetic-border text-xs font-semibold text-kinetic-muted hover:text-kinetic-ink hover:border-kinetic-ink transition-colors inline-flex items-center gap-1.5 whitespace-nowrap"
+              >
+                <span>Open in new tab</span>
+                <KineticIcon
+                  id="external-link"
+                  size={13}
+                  strokeWidth={1.7}
+                  radius={2.5}
+                />
+              </a>
+            </div>
+          </div>
+
+          <SupportCheckoutEmbed className="h-[680px] sm:h-[740px]" />
+        </section>
 
         {/* FAQ Accordion */}
         <section className="mt-16 sm:mt-20 max-w-3xl mx-auto">

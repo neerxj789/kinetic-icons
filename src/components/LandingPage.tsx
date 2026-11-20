@@ -13,6 +13,7 @@ import {
 import { toDartIdentifier } from '../lib/flutter/generateDart';
 import { KineticIcon } from './KineticIcon';
 import { SiteHeader, type SitePage } from './SiteHeader';
+import { SupportCheckoutModal } from './SupportCheckout';
 
 interface LandingPageProps {
   strokeWidth: number;
@@ -117,6 +118,7 @@ export function LandingPage({
   const [geometryIconId, setGeometryIconId] = useState<string>('shield-check');
   const [frameworkTab, setFrameworkTab] = useState<FrameworkTab>('react');
   const [frameworkIconId, setFrameworkIconId] = useState<string>('home');
+  const [supportModalOpen, setSupportModalOpen] = useState(false);
 
   const categorySummaries = useMemo(() => {
     const iconCategories = CATEGORIES.filter(
@@ -767,9 +769,27 @@ const svg = renderIconSvg(${camelExport}, {
             >
               Download ZIP
             </button>
+            <button
+              type="button"
+              onClick={() => setSupportModalOpen(true)}
+              className="inline-flex items-center gap-1.5 h-8 px-3 rounded-xl bg-kinetic-card border border-kinetic-border text-kinetic-ink font-semibold hover:border-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <KineticIcon
+                id="heart"
+                size={13}
+                strokeWidth={1.8}
+                radius={2.5}
+              />
+              <span>Support the Creator</span>
+            </button>
           </div>
         </div>
       </footer>
+
+      <SupportCheckoutModal
+        isOpen={supportModalOpen}
+        onClose={() => setSupportModalOpen(false)}
+      />
     </div>
   );
 }
