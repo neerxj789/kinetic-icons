@@ -1,0 +1,11 @@
+/* TEAM */
+Creator: Neer (neerxj789)
+Portfolio: https://framesbyneer.in
+GitHub: https://github.com/neerxj789/kinetic-icons
+npm: https://www.npmjs.com/package/kinetic-ui-icons
+
+/* SITE */
+Name: Kinetic Icons
+URL: https://kinetic.framesbyneer.in/
+License: MIT (Open Source, Free Forever)
+Standards: HTML5, CSS3, TypeScript, SVG 2, Web Components

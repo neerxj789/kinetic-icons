@@ -7,6 +7,7 @@
 - **Next.js App Router ready** — zero client hooks or runtime state; renders natively in React Server Components without `'use client'`.
 - **Flexible color support** — defaults to `stroke="currentColor"` (inherits Tailwind/CSS text color automatically) or accepts any explicit `color` prop/attribute.
 - **100% Free Forever (MIT License)** — free for personal, open-source, and commercial products with no attribution required.
+- **Interactive Studio & Docs** — browse, tune, and export all 178 icons live at [kinetic.framesbyneer.in](https://kinetic.framesbyneer.in/).
 
 ---
 
@@ -210,4 +211,4 @@ Icon IDs use `kebab-case` and map predictably across every target:
 
 ## License
 
-MIT © [neerxj789](https://github.com/neerxj789/kinetic-icons) — free forever for personal and commercial use.
+MIT © [Neer](https://framesbyneer.in) ([GitHub](https://github.com/neerxj789/kinetic-icons)) — free forever for personal and commercial use.

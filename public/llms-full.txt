@@ -1,0 +1,91 @@
+# Kinetic Icons (`kinetic-ui-icons`) — Complete Technical Reference for LLMs & Search Engines
+
+> Kinetic Icons is an open-source, MIT-licensed ($0 free forever) multi-framework SVG icon library containing 178 original monoline icons on a 24x24 optical grid. Every icon uses continuous-curvature cubic Bezier corner math so stroke weight (0.75–3.5px) and corner radius (0.0–4.0px) can be tuned smoothly without silhouette distortion.
+
+## Package & Distribution
+- **Website**: https://kinetic.framesbyneer.in/
+- **Creator**: Neer (https://framesbyneer.in)
+- **Install**: `npm install kinetic-ui-icons` (also works with `pnpm add kinetic-ui-icons`, `yarn add kinetic-ui-icons`)
+- **CDN**: `https://esm.sh/kinetic-ui-icons/web`
+- **Subpath Exports**:
+  - `kinetic-ui-icons/react` — Tree-shakeable `React.forwardRef` PascalCase components (zero client hooks, Next.js App Router RSC safe)
+  - `kinetic-ui-icons/web` — `<kinetic-icon>` Web Component and `createIcons()` helper for Vanilla JS, HTML, Vue, Svelte, Astro
+  - `kinetic-ui-icons/core` (also default `.`) — Zero-dependency pure TypeScript geometry engine, named `*Icon` definitions, and `renderIconSvg()`
+  - `flutter/lib/kinetic_icons.dart` — Ready-to-paste Dart library for `flutter_svg`
+- **GitHub**: https://github.com/neerxj789/kinetic-icons
+- **License**: MIT License — free forever for personal, open-source, and commercial applications with no attribution required.
+
+## React & Next.js API (`kinetic-ui-icons/react`)
+Every kebab-case icon ID maps to a PascalCase React component (e.g., `shield-check` -> `ShieldCheck`, `map-add` -> `MapAdd`, `ai-spark` -> `AiSpark`).
+
+### Props
+- `size?: number | string` (default `24`) — Width and height in px or CSS unit.
+- `strokeWidth?: number | string` (default `1.5`) — Recommended range `1.0` to `2.5`.
+- `radius?: number` (default `2.5`) — `0` for sharp (`square`/`miter`) up to `4.0` for soft continuous-curvature rounded (`round`/`round`).
+- `color?: string` (default `"currentColor"`) — Explicit hex/RGB/CSS color or inherits CSS/Tailwind `text-*` color.
+- `...rest: SVGProps<SVGSVGElement>` — `className`, `style`, `ref`, `aria-label`, `onClick`, etc.
+
+### Example
+```tsx
+import { Home, ShieldCheck, Carousel, Verified } from 'kinetic-ui-icons/react';
+
+export default function Toolbar() {
+  return (
+    <div className="flex items-center gap-3 text-neutral-900 dark:text-white">
+      <Home size={20} />
+      <ShieldCheck size={20} strokeWidth={1.75} radius={2.5} className="text-emerald-600" />
+      <Carousel size={20} radius={3} />
+      <Verified size={20} color="#2563EB" />
+    </div>
+  );
+}
+```
+
+## Web Component & HTML API (`kinetic-ui-icons/web`)
+```html
+<kinetic-icon name="shield-check" size="24" stroke="1.5" radius="2.5" color="#2563EB"></kinetic-icon>
+<i data-kinetic="home" data-size="24" data-stroke="1.5" data-radius="2.5"></i>
+<script type="module">
+  import { createIcons } from 'kinetic-ui-icons/web';
+  createIcons();
+</script>
+```
+
+## Core TypeScript API (`kinetic-ui-icons/core`)
+```ts
+import { homeIcon, renderIconSvg } from 'kinetic-ui-icons/core';
+
+const svgMarkup = renderIconSvg(homeIcon, {
+  size: 24,
+  stroke: 1.5,
+  radius: 2.5,
+  color: '#111113',
+});
+```
+
+## Flutter API (`flutter_svg`)
+```dart
+import 'package:flutter/material.dart';
+import 'package:kinetic_icons/kinetic_icons.dart';
+
+const KineticIcon(KineticIcons.home, size: 24);
+const KineticIcon(KineticIcons.verified, size: 24, color: Color(0xFF2563EB));
+```
+
+## Complete Official Catalog (178 Icon IDs)
+
+- **Essentials (42)**: home, vault, accounts, people, reports, cloud, star, folder, map-pin, pin, shopping-bag, shopping-cart, tag, gift, inbox, mic, volume, volume-mute, wifi, battery, bluetooth, printer, monitor, smartphone, power, log-in, flame, trophy, book, help-circle, location, map-add, bulb, smiley, alarm, stopwatch, verified, announcement, headphones, video, wallet, rocket
+- **Design (10)**: color, palette, theme, carousel, templates, round-corner, stroke, font, number, music
+- **Navigation (20)**: sidebar-left, sidebar-right, dashboard, menu, search, settings, sliders, compass, external-link, more-horizontal, more-vertical, chevron-left, chevron-right, chevron-up, chevron-down, arrow-left, arrow-right, arrow-up, arrow-down, arrow-up-right
+- **Social (30)**: message-round, message-round-lines, message-round-dots, comment, comment-round, message-square, message-lines, email, phone, heart, thumbs-up, share, share-round, send, send-round, bookmark, bookmark-round, repost, repost-round, bell, eye, eye-off, user, users, at-sign, hash, play, pause, camera, image
+- **Brands (21)**: instagram, facebook, twitter, x, github, behance, substack, linkedin, youtube, google, apple, android, windows, threads, tiktok, spotify, dribbble, figma, discord, whatsapp, telegram
+- **Actions (19)**: download, upload, save, trash, edit, copy, plus, minus, close, check, double-check, filter, refresh, paperclip, link, file, archive, undo, redo
+- **Dashboard (10)**: credit-card, chart-line, pie-chart, layers, box, calendar, clock, briefcase, receipt, activity
+- **Dev & AI (11)**: ai-spark, code, terminal, command, cpu, database, git-branch, brackets, bug, server, globe
+- **Alerts (15)**: warning, alert-circle, info, check-circle, x-circle, shield, shield-check, shield-alert, lock, unlock, key, zap, sun, moon, log-out
+
+## Frequently Asked Questions (AEO)
+- **Is Kinetic Icons free for commercial use?** Yes. All 178 icons and wrappers are MIT-licensed and $0 free forever for personal, client, SaaS, and commercial apps with no attribution required.
+- **How do I change icon colors?** Icons default to `stroke="currentColor"` so they inherit CSS/Tailwind text color or Flutter `IconTheme`. You can also pass an explicit `color` prop/attribute directly on any icon.
+- **Does Kinetic Icons work in Next.js Server Components?** Yes. Components in `kinetic-ui-icons/react` use zero client hooks or runtime state and render directly in Next.js App Router Server Components.
+- **How does Kinetic keep rounded corners sharp and legible?** Kinetic calculates continuous-curvature cubic Bezier fillets (`k = 0.58`) per vertex with angle compensation and segment clamping so silhouettes stay recognizable from `radius=0` to `radius=4.0`.

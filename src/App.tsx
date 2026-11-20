@@ -27,8 +27,42 @@ interface ToastItem {
 
 const GRID_SCALES = [20, 24, 28] as const;
 
+type AppView = SitePage | 'studio';
+
+const PAGE_SEO: Record<AppView, { title: string; description: string }> = {
+  landing: {
+    title: 'Kinetic Icons – Original Monoline SVG Icon Library',
+    description:
+      '178 original, round-corner-friendly monoline SVG icons. Customize stroke, radius, and color live—free forever for React, Next.js, HTML, and Flutter.',
+  },
+  docs: {
+    title: 'Documentation – Kinetic Icons (kinetic-ui-icons)',
+    description:
+      'Install kinetic-ui-icons, copy the AI Agent Prompt, and learn how to use React, Next.js Server Components, Web Components, Core TS, and Flutter icons.',
+  },
+  pricing: {
+    title: 'Pricing ($0 Free Forever) – Kinetic Icons',
+    description:
+      'Kinetic Icons is 100% free forever under the MIT License for personal and commercial apps, with optional creator support.',
+  },
+  studio: {
+    title: 'Icon Studio – Browse 178 Icons | Kinetic Icons',
+    description:
+      'Search all 178 Kinetic icons, tune stroke weight, corner radius, and color live, inspect React/SVG/Web/Flutter code, and export custom ZIP bundles.',
+  },
+};
+
+function getInitialView(): AppView {
+  if (typeof window === 'undefined') return 'landing';
+  const param = new URLSearchParams(window.location.search).get('page');
+  if (param === 'docs' || param === 'pricing' || param === 'studio') {
+    return param;
+  }
+  return 'landing';
+}
+
 export default function App() {
-  const [view, setView] = useState<SitePage | 'studio'>('landing');
+  const [view, setView] = useState<AppView>(getInitialView);
   const [category, setCategory] = useState<CategoryFilter>('All Icons');
   const [searchQuery, setSearchQuery] = useState('');
   const [strokeWidth, setStrokeWidth] = useState(DEFAULT_STROKE_WIDTH);
@@ -55,6 +89,54 @@ export default function App() {
       html.classList.remove('dark');
     }
   }, [isDark]);
+
+  // Sync dynamic page SEO metadata (title, description, canonical, og:url, query param)
+  useEffect(() => {
+    const meta = PAGE_SEO[view];
+    document.title = meta.title;
+
+    const url = new URL(window.location.href);
+    if (view === 'landing') {
+      url.searchParams.delete('page');
+    } else {
+      url.searchParams.set('page', view);
+    }
+    const nextRelative = url.pathname + url.search;
+    if (window.location.pathname + window.location.search !== nextRelative) {
+      window.history.replaceState(null, '', nextRelative);
+    }
+    const canonicalHref = 'https://kinetic.framesbyneer.in' + nextRelative;
+
+    const upsertMeta = (
+      selector: string,
+      attrName: 'name' | 'property',
+      attrValue: string,
+      content: string
+    ) => {
+      let el = document.head.querySelector<HTMLMetaElement>(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attrName, attrValue);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+
+    upsertMeta('meta[name="description"]', 'name', 'description', meta.description);
+    upsertMeta('meta[property="og:title"]', 'property', 'og:title', meta.title);
+    upsertMeta('meta[property="og:description"]', 'property', 'og:description', meta.description);
+    upsertMeta('meta[property="og:url"]', 'property', 'og:url', canonicalHref);
+    upsertMeta('meta[name="twitter:title"]', 'name', 'twitter:title', meta.title);
+    upsertMeta('meta[name="twitter:description"]', 'name', 'twitter:description', meta.description);
+
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalHref;
+  }, [view]);
 
   // Global keyboard shortcuts: ⌘K / Ctrl+K to focus search, Escape to close drawer
   useEffect(() => {

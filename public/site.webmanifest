@@ -1,0 +1,29 @@
+{
+  "name": "Kinetic Icons — Original Monoline SVG Icon Library",
+  "short_name": "Kinetic Icons",
+  "description": "178 original, round-corner-friendly monoline SVG icons for React, Next.js, HTML, Web Components, and Flutter. Free forever under MIT.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#111113",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

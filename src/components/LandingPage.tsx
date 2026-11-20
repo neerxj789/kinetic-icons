@@ -747,57 +747,88 @@ const svg = renderIconSvg(${camelExport}, {
 
       {/* QUIET FOOTER */}
       <footer className="border-t border-kinetic-border py-8">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-kinetic-muted text-center sm:text-left">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 tabular-nums">
-            <span className="font-semibold text-kinetic-ink">Kinetic</span>
-            <span aria-hidden="true">·</span>
-            <span>{ICONS_CATALOG.length} Icons</span>
-            <span aria-hidden="true">·</span>
-            <span>MIT License</span>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col gap-5 text-xs text-kinetic-muted">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 tabular-nums">
+              <span className="font-semibold text-kinetic-ink">Kinetic</span>
+              <span aria-hidden="true">·</span>
+              <span>{ICONS_CATALOG.length} Icons</span>
+              <span aria-hidden="true">·</span>
+              <span>MIT License</span>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-5">
+              <button
+                type="button"
+                onClick={() => onNavigate('docs')}
+                className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                Documentation
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigate('pricing')}
+                className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                Pricing
+              </button>
+              <button
+                type="button"
+                onClick={() => onOpenStudio()}
+                className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                Icon Studio
+              </button>
+              <button
+                type="button"
+                onClick={onDownloadZip}
+                className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                Download ZIP
+              </button>
+              <button
+                type="button"
+                onClick={() => setSupportModalOpen(true)}
+                className="inline-flex items-center gap-1.5 h-8 px-3 rounded-xl bg-kinetic-card border border-kinetic-border text-kinetic-ink font-semibold hover:border-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                <KineticIcon
+                  id="heart"
+                  size={13}
+                  strokeWidth={1.8}
+                  radius={2.5}
+                />
+                <span>Support the Creator</span>
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-5">
-            <button
-              type="button"
-              onClick={() => onNavigate('docs')}
-              className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              Documentation
-            </button>
-            <button
-              type="button"
-              onClick={() => onNavigate('pricing')}
-              className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              Pricing
-            </button>
-            <button
-              type="button"
-              onClick={() => onOpenStudio()}
-              className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              Icon Studio
-            </button>
-            <button
-              type="button"
-              onClick={onDownloadZip}
-              className="hover:text-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              Download ZIP
-            </button>
-            <button
-              type="button"
-              onClick={() => setSupportModalOpen(true)}
-              className="inline-flex items-center gap-1.5 h-8 px-3 rounded-xl bg-kinetic-card border border-kinetic-border text-kinetic-ink font-semibold hover:border-kinetic-ink transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              <KineticIcon
-                id="heart"
-                size={13}
-                strokeWidth={1.8}
-                radius={2.5}
-              />
-              <span>Support the Creator</span>
-            </button>
+          <div className="pt-4 border-t border-kinetic-border/60 flex items-center justify-center text-center text-xs text-kinetic-muted">
+            <p className="inline-flex items-center justify-center gap-1.5">
+              <span>Created with</span>
+              <span
+                className="inline-flex items-center"
+                role="img"
+                aria-label="love"
+              >
+                <KineticIcon
+                  id="heart"
+                  size={13}
+                  strokeWidth={1.6}
+                  radius={2.5}
+                  color="#EF4444"
+                  className="[&_path]:fill-[#EF4444]"
+                />
+              </span>
+              <span>by</span>
+              <a
+                href="https://framesbyneer.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-kinetic-ink underline underline-offset-4 decoration-kinetic-border hover:decoration-kinetic-ink transition-colors"
+              >
+                Neer
+              </a>
+            </p>
           </div>
         </div>
       </footer>

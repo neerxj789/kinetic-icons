@@ -1,0 +1,43 @@
+# Kinetic Icons — Crawlability for Search Engines, Answer Engines (AEO) & AI Crawlers (GEO)
+
+User-agent: *
+Allow: /
+
+# Search Engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# AI & Generative Search Crawlers (GEO / AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Sitemap & LLM Index
+Sitemap: https://kinetic.framesbyneer.in/sitemap.xml
+# LLM Documentation Index: https://kinetic.framesbyneer.in/llms.txt and https://kinetic.framesbyneer.in/llms-full.txt

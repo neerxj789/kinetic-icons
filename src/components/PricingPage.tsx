@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ICONS_CATALOG } from '../data/icons';
 import { KineticIcon } from './KineticIcon';
 import { SiteHeader, type SitePage } from './SiteHeader';
@@ -47,24 +47,36 @@ const FAQS = [
   },
 ] as const;
 
-async function copyShareUrl(): Promise<void> {
-  const url = typeof window !== 'undefined' ? window.location.origin : '';
+const SHARE_URL = 'https://kinetic.framesbyneer.in/';
+
+async function copyShareUrl(url: string): Promise<boolean> {
   if (navigator.clipboard && window.isSecureContext) {
     try {
       await navigator.clipboard.writeText(url);
-      return;
+      return true;
     } catch {
       // Fallback below
     }
   }
-  const textarea = document.createElement('textarea');
-  textarea.value = url;
-  textarea.style.position = 'fixed';
-  textarea.style.opacity = '0';
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
+  try {
+    const textarea = document.createElement('textarea');
+    textarea.value = url;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.opacity = '0';
+    textarea.style.userSelect = 'text';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, url.length);
+    const copied = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    return copied;
+  } catch {
+    return false;
+  }
 }
 
 export function PricingPage({
@@ -76,10 +88,48 @@ export function PricingPage({
   onToast,
 }: PricingPageProps) {
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
+  const [shareCopied, setShareCopied] = useState(false);
+  const shareResetTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (shareResetTimerRef.current !== null) {
+        window.clearTimeout(shareResetTimerRef.current);
+      }
+    };
+  }, []);
 
   const handleShare = async () => {
-    await copyShareUrl();
-    onToast('Kinetic link copied—thanks for spreading the word!');
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+      try {
+        await navigator.share({
+          title: 'Kinetic Icons',
+          text: '178 original, round-corner-friendly monoline SVG icons — free forever.',
+          url: SHARE_URL,
+        });
+        onToast('Thanks for sharing Kinetic Icons!');
+        return;
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') {
+          return;
+        }
+        // Native share blocked (e.g. iframe) or failed — fall back to clipboard copy
+      }
+    }
+
+    const copied = await copyShareUrl(SHARE_URL);
+    if (copied) {
+      setShareCopied(true);
+      if (shareResetTimerRef.current !== null) {
+        window.clearTimeout(shareResetTimerRef.current);
+      }
+      shareResetTimerRef.current = window.setTimeout(() => {
+        setShareCopied(false);
+      }, 2200);
+      onToast('Kinetic link copied—thanks for spreading the word!');
+    } else {
+      onToast(`Share URL: ${SHARE_URL}`);
+    }
   };
 
   return (
@@ -213,12 +263,12 @@ export function PricingPage({
                 className="h-9 px-3 rounded-xl bg-kinetic-bg border border-kinetic-border text-xs font-semibold text-kinetic-ink inline-flex items-center gap-1.5 hover:border-kinetic-ink transition-colors whitespace-nowrap cursor-pointer"
               >
                 <KineticIcon
-                  id="share"
+                  id={shareCopied ? 'check' : 'share'}
                   size={13}
                   strokeWidth={1.8}
                   radius={2.5}
                 />
-                <span>Share Link</span>
+                <span>{shareCopied ? 'Link Copied' : 'Share Link'}</span>
               </button>
               <a
                 href={DODO_CHECKOUT_URL}
