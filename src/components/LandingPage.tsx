@@ -304,97 +304,113 @@ const svg = renderIconSvg(${camelExport}, {
             </div>
           </div>
 
-          {/* CENTERED FULL-WIDTH LIVE SPECIMEN SHOWCASE */}
-          <div className="mt-12 sm:mt-14 rounded-2xl bg-kinetic-card border border-kinetic-border p-4 sm:p-6">
-            {/* Compact Live Controls Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-kinetic-border">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-kinetic-muted">
-                <span className="font-semibold text-kinetic-ink">
-                  Live Interactive Specimen
-                </span>
-                <span aria-hidden="true">·</span>
-                <span>Drag sliders or click any icon to inspect</span>
-              </div>
+          {/* CENTERED FULL-WIDTH LIVE SPECIMEN SHOWCASE WITH GRADIENT BACKDROP */}
+          <div className="mt-12 sm:mt-14 relative rounded-[28px] sm:rounded-[36px] overflow-hidden p-5 sm:p-10 md:p-14 lg:p-16 border border-black/10 dark:border-white/10 bg-[#c9b8cf]">
+            {/* Gradient Backdrop Image */}
+            <img
+              src="/assets/aistudio/Kinetic__1__1349d38f.webp"
+              alt=""
+              aria-hidden="true"
+              referrerPolicy="no-referrer"
+              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-white/5 dark:bg-black/25 pointer-events-none"
+            />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:items-center gap-4 md:gap-6">
-                <div className="flex items-center gap-2.5 text-xs tabular-nums">
-                  <span className="text-kinetic-muted font-medium whitespace-nowrap">
-                    Stroke
+            {/* Elevated Specimen Container Above Gradient */}
+            <div className="relative z-10 rounded-2xl bg-kinetic-bg/95 dark:bg-kinetic-card/95 backdrop-blur-md border border-black/10 dark:border-white/12 shadow-[0_20px_50px_-16px_rgba(17,17,19,0.25)] p-4 sm:p-6">
+              {/* Compact Live Controls Header */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-kinetic-border">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-kinetic-muted">
+                  <span className="font-semibold text-kinetic-ink">
+                    Live Interactive Specimen
                   </span>
-                  <input
-                    type="range"
-                    min="0.75"
-                    max="3.0"
-                    step="0.25"
-                    value={strokeWidth}
-                    onChange={(e) =>
-                      onStrokeChange(parseFloat(e.target.value))
-                    }
-                    className="flex-1 md:w-24"
-                    aria-label="Specimen stroke weight"
-                  />
-                  <span className="w-11 text-right font-semibold text-kinetic-ink">
-                    {strokeWidth.toFixed(2)}px
-                  </span>
+                  <span aria-hidden="true">·</span>
+                  <span>Drag sliders or click any icon to inspect</span>
                 </div>
 
-                <div className="flex items-center gap-2.5 text-xs tabular-nums">
-                  <span className="text-kinetic-muted font-medium whitespace-nowrap">
-                    Radius
-                  </span>
-                  <input
-                    type="range"
-                    min="0"
-                    max="4.0"
-                    step="0.25"
-                    value={cornerRadius}
-                    onChange={(e) =>
-                      onRadiusChange(parseFloat(e.target.value))
-                    }
-                    className="flex-1 md:w-24"
-                    aria-label="Specimen corner radius"
-                  />
-                  <span className="w-11 text-right font-semibold text-kinetic-ink">
-                    {cornerRadius.toFixed(2)}px
-                  </span>
-                </div>
-
-                {(strokeWidth !== DEFAULT_STROKE_WIDTH ||
-                  cornerRadius !== DEFAULT_CORNER_RADIUS) && (
-                  <button
-                    type="button"
-                    onClick={handleResetDemo}
-                    className="text-xs font-medium text-kinetic-muted hover:text-kinetic-ink underline underline-offset-2 text-left md:text-right whitespace-nowrap cursor-pointer"
-                  >
-                    Reset
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Responsive 2x8 / 4x4 / 8x2 Hairline Specimen Grid */}
-            <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-px bg-kinetic-border rounded-xl overflow-hidden border border-kinetic-border">
-              {HERO_SPECIMEN_IDS.map((id) => (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => onOpenStudio({ iconId: id })}
-                  title={`Inspect ${id}`}
-                  className="group bg-kinetic-bg hover:bg-kinetic-cardHover transition-colors flex flex-col items-center justify-center gap-2 py-5 px-2 cursor-pointer"
-                >
-                  <span className="transition-transform duration-150 group-hover:scale-110">
-                    <KineticIcon
-                      id={id}
-                      size={24}
-                      strokeWidth={strokeWidth}
-                      radius={cornerRadius}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:items-center gap-4 md:gap-6">
+                  <div className="flex items-center gap-2.5 text-xs tabular-nums">
+                    <span className="text-kinetic-muted font-medium whitespace-nowrap">
+                      Stroke
+                    </span>
+                    <input
+                      type="range"
+                      min="0.75"
+                      max="3.0"
+                      step="0.25"
+                      value={strokeWidth}
+                      onChange={(e) =>
+                        onStrokeChange(parseFloat(e.target.value))
+                      }
+                      className="flex-1 md:w-24"
+                      aria-label="Specimen stroke weight"
                     />
-                  </span>
-                  <span className="text-[11px] font-medium text-kinetic-muted group-hover:text-kinetic-ink transition-colors truncate max-w-full">
-                    {id}
-                  </span>
-                </button>
-              ))}
+                    <span className="w-11 text-right font-semibold text-kinetic-ink">
+                      {strokeWidth.toFixed(2)}px
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2.5 text-xs tabular-nums">
+                    <span className="text-kinetic-muted font-medium whitespace-nowrap">
+                      Radius
+                    </span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="4.0"
+                      step="0.25"
+                      value={cornerRadius}
+                      onChange={(e) =>
+                        onRadiusChange(parseFloat(e.target.value))
+                      }
+                      className="flex-1 md:w-24"
+                      aria-label="Specimen corner radius"
+                    />
+                    <span className="w-11 text-right font-semibold text-kinetic-ink">
+                      {cornerRadius.toFixed(2)}px
+                    </span>
+                  </div>
+
+                  {(strokeWidth !== DEFAULT_STROKE_WIDTH ||
+                    cornerRadius !== DEFAULT_CORNER_RADIUS) && (
+                    <button
+                      type="button"
+                      onClick={handleResetDemo}
+                      className="text-xs font-medium text-kinetic-muted hover:text-kinetic-ink underline underline-offset-2 text-left md:text-right whitespace-nowrap cursor-pointer"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Responsive 2x8 / 4x4 / 8x2 Hairline Specimen Grid */}
+              <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-px bg-kinetic-border rounded-xl overflow-hidden border border-kinetic-border">
+                {HERO_SPECIMEN_IDS.map((id) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => onOpenStudio({ iconId: id })}
+                    title={`Inspect ${id}`}
+                    className="group bg-kinetic-bg hover:bg-kinetic-cardHover transition-colors flex flex-col items-center justify-center gap-2 py-5 px-2 cursor-pointer"
+                  >
+                    <span className="transition-transform duration-150 group-hover:scale-110">
+                      <KineticIcon
+                        id={id}
+                        size={24}
+                        strokeWidth={strokeWidth}
+                        radius={cornerRadius}
+                      />
+                    </span>
+                    <span className="text-[11px] font-medium text-kinetic-muted group-hover:text-kinetic-ink transition-colors truncate max-w-full">
+                      {id}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
