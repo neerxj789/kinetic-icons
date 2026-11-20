@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-kinetic-bg: var(--kinetic-bg);
+  --color-kinetic-card: var(--kinetic-card);
+  --color-kinetic-cardHover: var(--kinetic-card-hover);
+  --color-kinetic-ink: var(--kinetic-ink);
+  --color-kinetic-muted: var(--kinetic-muted);
+  --color-kinetic-border: var(--kinetic-border);
+  --color-kinetic-pill: var(--kinetic-pill);
+  --color-kinetic-accent: var(--kinetic-accent);
+}
+
+/* STRICT TYPOGRAPHY OVERRIDE — ONLY DM SANS ANYWHERE */
+*,
+html,
+body,
+button,
+input,
+select,
+textarea,
+code,
+pre,
+kbd,
+span,
+div {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+:root {
+  --kinetic-bg: #FFFFFF;
+  --kinetic-card: #F6F6F7;
+  --kinetic-card-hover: #EFEFF2;
+  --kinetic-ink: #111113;
+  --kinetic-muted: #6E6E77;
+  --kinetic-border: #EAEAEF;
+  --kinetic-pill: #F3F3F5;
+  --kinetic-accent: #111113;
+}
+
+.dark {
+  --kinetic-bg: #0B0B0D;
+  --kinetic-card: #161619;
+  --kinetic-card-hover: #1F1F24;
+  --kinetic-ink: #F5F5F7;
+  --kinetic-muted: #8E8E96;
+  --kinetic-border: #242429;
+  --kinetic-pill: #212126;
+  --kinetic-accent: #F5F5F7;
+}
+
+body {
+  background-color: var(--kinetic-bg);
+  color: var(--kinetic-ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom thin scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(110, 110, 119, 0.2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(110, 110, 119, 0.4);
+}
+
+/* Slider custom styling */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+input[type='range']:focus {
+  outline: none;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: var(--kinetic-border);
+  border-radius: 2px;
+}
+input[type='range']::-webkit-slider-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: var(--kinetic-ink);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.1s ease;
+}
+input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Toast animation */
+@keyframes toastIn {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-toast {
+  animation: toastIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Optical keyline grid */
+.keyline-grid {
+  background-size: 8px 8px;
+  background-image:
+    linear-gradient(to right, rgba(110, 110, 119, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(110, 110, 119, 0.08) 1px, transparent 1px);
+}

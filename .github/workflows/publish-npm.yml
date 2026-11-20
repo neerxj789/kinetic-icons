@@ -1,0 +1,80 @@
+name: Publish kinetic-ui-icons to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Optional version override (e.g. 1.1.0). Leave blank to use package.lib.json version.'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish-npm:
+    name: Build & Publish kinetic-ui-icons
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Stage clean npm package folder
+        run: |
+          rm -rf .npm-publish
+          mkdir -p .npm-publish/src
+          cp -r src/lib .npm-publish/src/
+          cp tsup.lib.config.ts tsconfig.lib.json README.md LICENSE .npm-publish/
+          cp package.lib.json .npm-publish/package.json
+
+      - name: Sync package version from GitHub Release tag or manual input
+        working-directory: .npm-publish
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          TARGET_VERSION=""
+          if [ -n "$INPUT_VERSION" ]; then
+            TARGET_VERSION="${INPUT_VERSION#v}"
+          elif [ -n "$RELEASE_TAG" ]; then
+            TARGET_VERSION="${RELEASE_TAG#v}"
+          fi
+
+          if [ -n "$TARGET_VERSION" ]; then
+            echo "Setting package version to $TARGET_VERSION"
+            npm version "$TARGET_VERSION" --no-git-tag-version --allow-same-version
+          else
+            echo "Using version from package.lib.json"
+          fi
+
+      - name: Install library build dependencies
+        working-directory: .npm-publish
+        run: npm install
+
+      - name: Typecheck library
+        working-directory: .npm-publish
+        run: npm run typecheck
+
+      - name: Build JS, React, Web & TypeScript bundles
+        working-directory: .npm-publish
+        run: npm run build
+
+      - name: Generate Flutter Dart library
+        working-directory: .npm-publish
+        run: npm run build:flutter
+
+      - name: Publish kinetic-ui-icons to npm
+        working-directory: .npm-publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public

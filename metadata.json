@@ -1,0 +1,8 @@
+{
+  "name": "Kinetic icons",
+  "description": "Parametric SVG Icon Library Studio with handcrafted vector stroke icons, live stroke and corner-radius controls, and SVG/JSX export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "name": "kinetic-ui-icons",
+  "version": "1.0.0",
+  "description": "Original, round-corner-friendly monoline SVG icon library for React, Next.js, TypeScript, Vanilla JS, Web Components, and Flutter.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neerxj789/kinetic-icons.git"
+  },
+  "homepage": "https://github.com/neerxj789/kinetic-icons#readme",
+  "bugs": {
+    "url": "https://github.com/neerxj789/kinetic-icons/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/core/index.cjs",
+  "module": "./dist/core/index.js",
+  "types": "./dist/core/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.cjs"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    },
+    "./web": {
+      "types": "./dist/web/index.d.ts",
+      "import": "./dist/web/index.js",
+      "require": "./dist/web/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "flutter",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "icons",
+    "svg",
+    "ui-icons",
+    "react-icons",
+    "nextjs",
+    "web-components",
+    "flutter",
+    "typescript",
+    "kinetic-ui-icons",
+    "kinetic-icons"
+  ],
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.1",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "scripts": {
+    "build": "tsup --config tsup.lib.config.ts",
+    "build:flutter": "tsx -e \"import fs from 'fs'; import { generateFlutterDart } from './src/lib/flutter/generateDart'; fs.mkdirSync('flutter/lib', { recursive: true }); fs.writeFileSync('flutter/lib/kinetic_icons.dart', generateFlutterDart());\"",
+    "typecheck": "tsc -p tsconfig.lib.json --noEmit",
+    "prepublishOnly": "npm run build && npm run build:flutter"
+  }
+}
