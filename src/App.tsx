@@ -33,7 +33,7 @@ const PAGE_SEO: Record<AppView, { title: string; description: string }> = {
   landing: {
     title: 'Kinetic Icons – Original Monoline SVG Icon Library',
     description:
-      '178 original, round-corner-friendly monoline SVG icons. Customize stroke, radius, and color live—free forever for React, Next.js, HTML, and Flutter.',
+      '462 original, round-corner-friendly monoline SVG icons. Customize stroke, radius, and color live—free forever for React, Next.js, HTML, and Flutter.',
   },
   docs: {
     title: 'Documentation – Kinetic Icons (kinetic-ui-icons)',
@@ -46,9 +46,9 @@ const PAGE_SEO: Record<AppView, { title: string; description: string }> = {
       'Kinetic Icons is 100% free forever under the MIT License for personal and commercial apps, with optional creator support.',
   },
   studio: {
-    title: 'Icon Studio – Browse 178 Icons | Kinetic Icons',
+    title: 'Icon Studio – Browse 462 Icons | Kinetic Icons',
     description:
-      'Search all 178 Kinetic icons, tune stroke weight, corner radius, and color live, inspect React/SVG/Web/Flutter code, and export custom ZIP bundles.',
+      'Search all 462 Kinetic icons, tune stroke weight, corner radius, and color live, inspect React/SVG/Web/Flutter code, and export custom ZIP bundles.',
   },
 };
 

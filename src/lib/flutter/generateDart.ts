@@ -98,7 +98,7 @@ export interface GenerateFlutterDartOptions {
   radius?: number;
   /** Default stroke color baked into the SVG markup. Defaults to `currentColor`. */
   color?: string;
-  /** Optional custom list of icons. Defaults to all 142 Kinetic icons. */
+  /** Optional custom list of icons. Defaults to all 462 Kinetic icons. */
   icons?: IconDefinition[];
 }
 

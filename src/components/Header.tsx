@@ -55,13 +55,13 @@ export function Header({
   return (
     <>
       {/* TOP STICKY HEADER */}
-      <header className="sticky top-0 z-30 h-16 bg-kinetic-bg border-b border-kinetic-border px-4 lg:px-7 flex items-center justify-between shrink-0">
+      <header className="sticky top-0 z-30 h-16 bg-kinetic-bg border-b border-kinetic-border px-3 sm:px-5 lg:px-7 flex items-center justify-between gap-2 sm:gap-4 shrink-0">
         {/* Left: Brand */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             type="button"
             onClick={onOpenMobileSidebar}
-            className="lg:hidden p-2 text-kinetic-ink hover:bg-kinetic-card rounded-xl transition-colors cursor-pointer"
+            className="lg:hidden w-9 h-9 flex items-center justify-center text-kinetic-ink hover:bg-kinetic-card rounded-xl transition-colors cursor-pointer shrink-0"
             aria-label="Open categories menu"
           >
             <KineticIcon id="menu" size={20} strokeWidth={1.6} radius={2.5} />
@@ -69,7 +69,7 @@ export function Header({
 
           <button
             type="button"
-            className="flex items-center gap-2.5 cursor-pointer text-left"
+            className="flex items-center gap-2 sm:gap-2.5 cursor-pointer text-left shrink-0"
             onClick={() => {
               if (onGoHome) {
                 onGoHome();
@@ -79,7 +79,7 @@ export function Header({
             }}
             title="Back to Kinetic overview"
           >
-            <div className="w-8 h-8 rounded-xl bg-kinetic-card border border-kinetic-border flex items-center justify-center text-kinetic-ink">
+            <div className="w-8 h-8 rounded-xl bg-kinetic-card border border-kinetic-border flex items-center justify-center text-kinetic-ink shrink-0">
               <KineticIcon
                 id="ai-spark"
                 size={18}
@@ -91,15 +91,15 @@ export function Header({
               <span className="font-semibold text-base tracking-tight text-kinetic-ink">
                 Kinetic
               </span>
-              <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-kinetic-pill text-kinetic-muted border border-kinetic-border">
+              <span className="hidden sm:inline-flex text-[11px] font-medium px-2 py-0.5 rounded-full bg-kinetic-pill text-kinetic-muted border border-kinetic-border">
                 v2.0
               </span>
             </div>
           </button>
         </div>
 
-        {/* Center: Search Bar */}
-        <div className="hidden md:flex items-center relative w-full max-w-sm mx-4">
+        {/* Center: Search Bar (Tablet & Desktop) */}
+        <div className="hidden md:flex items-center relative flex-1 min-w-0 max-w-sm">
           <div className="absolute left-3.5 text-kinetic-muted pointer-events-none flex items-center justify-center">
             <KineticIcon id="search" size={16} strokeWidth={1.6} radius={2.5} />
           </div>
@@ -116,10 +116,10 @@ export function Header({
           </kbd>
         </div>
 
-        {/* Right: Inline Controls */}
-        <div className="flex items-center gap-3 lg:gap-5">
-          {/* Stroke Slider */}
-          <div className="hidden sm:flex items-center gap-2 text-xs">
+        {/* Right: Inline Controls (Sliders inline at xl+, Actions always visible) */}
+        <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-4 shrink-0">
+          {/* Stroke Slider (Wide Desktop Only) */}
+          <div className="hidden xl:flex items-center gap-2 text-xs shrink-0">
             <span className="text-kinetic-muted font-medium">Stroke</span>
             <input
               type="range"
@@ -131,15 +131,15 @@ export function Header({
               className="w-20"
               aria-label="Stroke width"
             />
-            <span className="w-9 font-medium text-[11px] text-kinetic-ink px-1.5 py-0.5 rounded bg-kinetic-pill border border-kinetic-border text-center">
+            <span className="w-10 font-medium text-[11px] text-kinetic-ink px-1.5 py-0.5 rounded bg-kinetic-pill border border-kinetic-border text-center tabular-nums">
               {strokeWidth.toFixed(1)}px
             </span>
           </div>
 
-          <div className="hidden sm:block w-px h-5 bg-kinetic-border" />
+          <div className="hidden xl:block w-px h-5 bg-kinetic-border shrink-0" />
 
-          {/* Radius Slider */}
-          <div className="hidden sm:flex items-center gap-2 text-xs">
+          {/* Radius Slider (Wide Desktop Only) */}
+          <div className="hidden xl:flex items-center gap-2 text-xs shrink-0">
             <span className="text-kinetic-muted font-medium">Radius</span>
             <input
               type="range"
@@ -151,28 +151,30 @@ export function Header({
               className="w-20"
               aria-label="Corner radius"
             />
-            <span className="w-9 font-medium text-[11px] text-kinetic-ink px-1.5 py-0.5 rounded bg-kinetic-pill border border-kinetic-border text-center">
+            <span className="w-10 font-medium text-[11px] text-kinetic-ink px-1.5 py-0.5 rounded bg-kinetic-pill border border-kinetic-border text-center tabular-nums">
               {cornerRadius.toFixed(1)}px
             </span>
           </div>
 
-          <div className="hidden sm:block w-px h-5 bg-kinetic-border" />
+          <div className="hidden xl:block w-px h-5 bg-kinetic-border shrink-0" />
 
           {/* Color Swatch Trigger */}
-          <div className="relative" ref={colorTriggerRef}>
+          <div className="relative shrink-0" ref={colorTriggerRef}>
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 setColorPopoverOpen((prev) => !prev);
               }}
-              className="flex items-center gap-2 p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-kinetic-card border border-kinetic-border text-xs text-kinetic-ink hover:border-kinetic-ink transition-colors cursor-pointer"
+              className="h-9 flex items-center justify-center gap-2 px-2.5 rounded-xl bg-kinetic-card border border-kinetic-border text-xs text-kinetic-ink hover:border-kinetic-ink transition-colors cursor-pointer"
+              title="Customize icon color"
+              aria-label="Customize icon color"
             >
               <span
-                className="w-3.5 h-3.5 rounded-full border border-black/10"
+                className="w-3.5 h-3.5 rounded-full border border-kinetic-border shrink-0"
                 style={{ backgroundColor: activeColor }}
               />
-              <span className="hidden lg:inline text-xs font-medium">Color</span>
+              <span className="hidden 2xl:inline text-xs font-medium">Color</span>
             </button>
 
             {/* Color Swatch Popover */}
@@ -187,7 +189,7 @@ export function Header({
                       key={hex}
                       type="button"
                       onClick={() => onColorChange(hex)}
-                      className="w-6 h-6 rounded-full border border-black/10 transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
+                      className="w-6 h-6 rounded-full border border-kinetic-border transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
                       style={{ backgroundColor: hex }}
                       aria-label={`Select color ${hex}`}
                     />
@@ -210,13 +212,13 @@ export function Header({
           </div>
 
           {/* GitHub Repo Link */}
-          <GitHubRepoLink className="hidden xl:inline-flex" />
+          <GitHubRepoLink className="hidden sm:inline-flex" />
 
           {/* Theme Toggle */}
           <button
             type="button"
             onClick={onToggleTheme}
-            className="p-2 rounded-xl bg-kinetic-card border border-kinetic-border text-kinetic-ink hover:border-kinetic-ink transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-xl bg-kinetic-card border border-kinetic-border text-kinetic-ink hover:border-kinetic-ink transition-colors flex items-center justify-center cursor-pointer shrink-0"
             title="Toggle Light/Dark Theme"
             aria-label="Toggle Light/Dark Theme"
           >
@@ -231,10 +233,11 @@ export function Header({
         </div>
       </header>
 
-      {/* MOBILE SEARCH (ONLY VISIBLE ON MOBILE) */}
-      <div className="md:hidden p-3 border-b border-kinetic-border bg-kinetic-bg">
-        <div className="relative w-full">
-          <div className="absolute left-3 top-2.5 text-kinetic-muted pointer-events-none">
+      {/* MOBILE & TABLET SECONDARY TOOLBAR (Search on < md, Sliders on < xl) */}
+      <div className="xl:hidden border-b border-kinetic-border bg-kinetic-bg px-3 sm:px-5 lg:px-7 py-2.5 flex flex-col gap-2.5 shrink-0">
+        {/* Mobile Search Bar */}
+        <div className="md:hidden relative w-full">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-kinetic-muted pointer-events-none flex items-center justify-center">
             <KineticIcon id="search" size={16} strokeWidth={1.6} radius={2.5} />
           </div>
           <input
@@ -242,8 +245,45 @@ export function Header({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={`Search ${ICONS_CATALOG.length} Kinetic icons...`}
-            className="w-full h-9 pl-9 pr-4 bg-kinetic-card border border-kinetic-border rounded-xl text-xs text-kinetic-ink placeholder-kinetic-muted focus:outline-none"
+            className="w-full h-9 pl-9 pr-4 bg-kinetic-card border border-kinetic-border rounded-xl text-xs text-kinetic-ink placeholder-kinetic-muted focus:outline-none focus:border-kinetic-ink transition-colors"
           />
+        </div>
+
+        {/* Tablet & Mobile Sliders Row */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 items-center">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs min-w-0">
+            <span className="text-kinetic-muted font-medium shrink-0">Stroke</span>
+            <input
+              type="range"
+              min="0.75"
+              max="3.5"
+              step="0.25"
+              value={strokeWidth}
+              onChange={(e) => onStrokeChange(parseFloat(e.target.value))}
+              className="w-full flex-1 min-w-0"
+              aria-label="Stroke width"
+            />
+            <span className="w-9 sm:w-10 font-medium text-[11px] text-kinetic-ink px-1 py-0.5 rounded bg-kinetic-pill border border-kinetic-border text-center tabular-nums shrink-0">
+              {strokeWidth.toFixed(1)}px
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs min-w-0">
+            <span className="text-kinetic-muted font-medium shrink-0">Radius</span>
+            <input
+              type="range"
+              min="0"
+              max="4.0"
+              step="0.25"
+              value={cornerRadius}
+              onChange={(e) => onRadiusChange(parseFloat(e.target.value))}
+              className="w-full flex-1 min-w-0"
+              aria-label="Corner radius"
+            />
+            <span className="w-9 sm:w-10 font-medium text-[11px] text-kinetic-ink px-1 py-0.5 rounded bg-kinetic-pill border border-kinetic-border text-center tabular-nums shrink-0">
+              {cornerRadius.toFixed(1)}px
+            </span>
+          </div>
         </div>
       </div>
     </>

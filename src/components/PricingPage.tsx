@@ -104,7 +104,7 @@ export function PricingPage({
       try {
         await navigator.share({
           title: 'Kinetic Icons',
-          text: '178 original, round-corner-friendly monoline SVG icons — free forever.',
+          text: '462 original, round-corner-friendly monoline SVG icons — free forever.',
           url: SHARE_URL,
         });
         onToast('Thanks for sharing Kinetic Icons!');

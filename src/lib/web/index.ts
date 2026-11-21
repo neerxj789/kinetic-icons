@@ -40,7 +40,7 @@ export interface CreateIconsOptions {
   selector?: string;
   /** Root container to query within. Defaults to `document`. */
   root?: ParentNode;
-  /** Optional subset or custom map of icons. Defaults to all 142 Kinetic icons. */
+  /** Optional subset or custom map of icons. Defaults to all 462 Kinetic icons. */
   icons?: Record<string, IconDefinition>;
   /** Default icon size in px. */
   size?: number | string;

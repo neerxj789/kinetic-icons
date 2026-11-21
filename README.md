@@ -1,13 +1,13 @@
 # Kinetic Icons (`kinetic-ui-icons`)
 
-**178 original, round-corner-friendly monoline SVG icons** engineered on a 24×24 optical grid. Tune stroke weight, corner radius (`0.0` sharp to `4.0` soft rounded), and color dynamically—then ship directly to **React**, **Next.js (Server Components)**, **TypeScript**, **Vanilla JS / HTML / Vue / Svelte**, and **Flutter**.
+**462 original, round-corner-friendly monoline SVG icons** engineered on a 24×24 optical grid. Tune stroke weight, corner radius (`0.0` sharp to `4.0` soft rounded), and color dynamically—then ship directly to **React**, **Next.js (Server Components)**, **TypeScript**, **Vanilla JS / HTML / Vue / Svelte**, and **Flutter**.
 
 - **Zero silhouette distortion** — continuous-curvature cubic Bézier corners (`k = 0.58`) preserve icon recognition from crisp `0.0px` architectural corners to soft `4.0px` curves.
 - **Tree-shakeable & lightweight** — `"sideEffects": false` with individual named exports so your bundle only ships the icons you import.
 - **Next.js App Router ready** — zero client hooks or runtime state; renders natively in React Server Components without `'use client'`.
 - **Flexible color support** — defaults to `stroke="currentColor"` (inherits Tailwind/CSS text color automatically) or accepts any explicit `color` prop/attribute.
 - **100% Free Forever (MIT License)** — free for personal, open-source, and commercial products with no attribution required.
-- **Interactive Studio & Docs** — browse, tune, and export all 178 icons live at [kinetic.framesbyneer.in](https://kinetic.framesbyneer.in/).
+- **Interactive Studio & Docs** — browse, tune, and export all 462 icons live at [kinetic.framesbyneer.in](https://kinetic.framesbyneer.in/).
 
 ---
 
@@ -185,7 +185,7 @@ class Toolbar extends StatelessWidget {
 
 ---
 
-## Naming Convention & Categories (178 Icons)
+## Naming Convention & Categories (462 Icons)
 
 Icon IDs use `kebab-case` and map predictably across every target:
 
@@ -197,15 +197,15 @@ Icon IDs use `kebab-case` and map predictably across every target:
 | `ai-spark` | `<AiSpark />` | `aiSparkIcon` | `name="ai-spark"` | `KineticIcons.aiSpark` |
 
 **9 Categories Included:**
-- **Essentials** (42) — `home`, `star`, `folder`, `location`, `map-pin`, `map-add`, `bulb`, `smiley`, `alarm`, `stopwatch`, `verified`, `announcement`, `headphones`, `mic`, `wifi`, `video`, `wallet`, `rocket`, `shopping-cart`, `cloud`, and more.
-- **Design** (10) — `color`, `palette`, `theme`, `carousel`, `templates`, `round-corner`, `stroke`, `font`, `number`, `music`.
-- **Navigation** (21) — `dashboard`, `menu`, `search`, `settings`, `sliders`, `compass`, arrows & chevrons.
-- **Social** (30) — `message-round`, `comment-round`, `share-round`, `repost-round`, `send-round`, `bookmark-round`, `bell`, `eye`, `heart`, `email`, `phone`, and more.
-- **Brands** (21) — `github`, `instagram`, `facebook`, `x`, `twitter`, `threads`, `behance`, `substack`, `linkedin`, `youtube`, `google`, `apple`, `android`, `windows`, `figma`, `discord`, `spotify`, `dribbble`, `tiktok`, `whatsapp`, `telegram`.
-- **Actions** (20) — `download`, `upload`, `save`, `trash`, `edit`, `copy`, `check`, `double-check`, `paperclip`, `link`, `undo`, `redo`, and more.
-- **Dashboard** (10) — `credit-card`, `chart-line`, `pie-chart`, `layers`, `box`, `calendar`, `clock`, `briefcase`, `receipt`, `activity`.
-- **Dev & AI** (11) — `ai-spark`, `code`, `terminal`, `command`, `cpu`, `database`, `git-branch`, `brackets`, `bug`, `server`, `globe`.
-- **Alerts** (13) — `shield`, `shield-check`, `shield-alert`, `lock`, `unlock`, `key`, `warning`, `info`, `sun`, `moon`, `zap`, `log-out`.
+- **Essentials** (94) — `home`, `home-key`, `building`, `factory`, `warehouse`, `shopping-cart`, `shopping-cart-plus`, `scale`, `size-chart`, `pin`, `pin-angled`, `pin-off`, `tree-pine`, `tree-deciduous`, `tree-palm`, `flower`, `flower-tulip`, `flower-lotus`, food, hardware & more.
+- **Navigation** (62) — all arrows & chevrons with `-circle` & `-square` variants, all 12 cursors (`cursor`, `cursor-hand`, `cursor-resize-horizontal`, `cursor-resize-vertical`, etc.), `browser-search`, `tab-search`, `apps-grid`, `dashboard`, `multitasking` & more.
+- **Actions** (62) — `plus`, `minus`, `multiply` (with `-circle` & `-square` variants), `eraser`, `file`, `files`, `files-check`, `file-search`, `folder`, `folder-search`, `folder-user`, `table`, `table-row-add`, `table-row-delete`, `table-column-add`, `table-column-delete` & more.
+- **Design** (41) — `color`, `palette`, `swatches`, `heading`, `heading-1`, `heading-2`, `heading-3`, `heading-4`, `bold`, `italic`, `underline`, `strikethrough`, `list-bullet`, `list-ordered`, `list-checks`, `collage`, `typography`, `eyedropper`, `scribble`, `scribble-pad`, `theme`, `contrast`, `shapes` & more.
+- **Social** (68) — `chat`, `chat-round`, `chat-plus`, `chat-plus-round`, `sticker`, `sticker-round`, `sticker-plus`, `sticker-plus-round`, `status`, `broadcast`, `poll`, `family`, `accounts-search`, `autoplay`, `voice-speak` & more.
+- **Dashboard** (39) — `chart-line`, `chart-bar`, `chart-pie`, `activity`, `trending-up`, `trending-down`, `percent`, `exchange` (all with `-circle` & `-square` variants), `bank`, `coins`, `banknote`, `piggy-bank`, `gauge`, `diagnostic` & more.
+- **Dev & AI** (26) — `ai-spark`, `bot`, `robot`, `alien`, `ghost`, `crawler`, `waveform`, `research`, `branches`, `code`, `terminal`, `database`, `server`, `connectors` & more.
+- **Alerts** (32) — `lock`, `key`, `zap` (with `-circle` & `-square` variants), `passkeys`, `log-in`, `log-out`, `help-circle`, `help-square`, `shield`, `shield-check`, `shield-lock`, `family-safety`, `incognito` & more.
+- **Brands** (38) — `openai`, `anthropic`, `gemini`, `github`, `vercel`, `nextjs`, `supabase`, `vscode`, `docker`, `figma`, `linear`, `notion`, `slack`, `stripe`, `google`, `google-drive`, `wikipedia`, `quora`, `reddit`, `internet-archive` & more.
 
 ---
 

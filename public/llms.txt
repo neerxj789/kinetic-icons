@@ -1,6 +1,6 @@
 # Kinetic Icons (`kinetic-ui-icons`)
 
-> Kinetic Icons is a free, open-source (MIT) library of 178 original, round-corner-friendly monoline SVG icons crafted on a 24x24 optical grid. Unlike static icon sets that distort when rounded, Kinetic computes continuous-curvature cubic Bezier corners dynamically across stroke weight (0.75px–3.5px), corner radius (0.0px sharp to 4.0px soft), and color.
+> Kinetic Icons is a free, open-source (MIT) library of 462 original, round-corner-friendly monoline SVG icons crafted on a 24x24 optical grid. Unlike static icon sets that distort when rounded, Kinetic computes continuous-curvature cubic Bezier corners dynamically across stroke weight (0.75px–3.5px), corner radius (0.0px sharp to 4.0px soft), and color.
 
 ## Quick Facts
 - **Website**: https://kinetic.framesbyneer.in/
@@ -8,14 +8,14 @@
 - **npm Package**: `kinetic-ui-icons` (`npm install kinetic-ui-icons`)
 - **GitHub Repository**: https://github.com/neerxj789/kinetic-icons
 - **License & Pricing**: MIT License — $0, free forever for personal and commercial projects (no attribution required)
-- **Catalog Size**: 178 original icons across 9 categories (Essentials, Design, Navigation, Social, Brands, Actions, Dashboard, Dev & AI, Alerts)
+- **Catalog Size**: 462 original icons across 9 categories (Essentials, Design, Navigation, Social, Brands, Actions, Dashboard, Dev & AI, Alerts)
 - **Frameworks Supported**: React 17/18/19, Next.js App Router (Server Components compatible, zero `'use client'`), Vanilla JS / HTML / Vue / Svelte / Astro (`<kinetic-icon>` Web Component), Zero-Dependency TypeScript Core (Node/Edge/SSR), and Flutter (`flutter_svg` via `kinetic_icons.dart`).
 - **Color Support**: Defaults to `stroke="currentColor"` (inherits Tailwind/CSS text color or Flutter `IconTheme`) and also supports explicit `color` props/attributes (`#2563EB`, RGB, CSS variables, Flutter `Color`).
 
 ## Documentation & Resources
-- [Complete LLM Technical Reference & Full 178-Icon Catalog](https://kinetic.framesbyneer.in/llms-full.txt): Full API specs, framework code snippets, and every official icon ID.
+- [Complete LLM Technical Reference & Full 462-Icon Catalog](https://kinetic.framesbyneer.in/llms-full.txt): Full API specs, framework code snippets, and every official icon ID.
 - [Interactive Documentation](https://kinetic.framesbyneer.in/?page=docs): Installation, live color preview, props reference, and copyable AI Agent Prompt.
-- [Interactive Icon Studio](https://kinetic.framesbyneer.in/?page=studio): Search all 178 icons, tune stroke weight & corner radius live, inspect SVG/React/Web/Flutter code, and download ZIP bundles.
+- [Interactive Icon Studio](https://kinetic.framesbyneer.in/?page=studio): Search all 462 icons, tune stroke weight & corner radius live, inspect SVG/React/Web/Flutter code, and download ZIP bundles.
 - [Pricing & License](https://kinetic.framesbyneer.in/?page=pricing): $0 MIT open-source license details and optional creator support.
 - [npm Registry](https://www.npmjs.com/package/kinetic-ui-icons): Official npm package with ESM, CJS, and TypeScript declarations.
 - [Source Code](https://github.com/neerxj789/kinetic-icons): Open-source repository on GitHub.

@@ -255,14 +255,14 @@ export function kineticSparkPath(r: number): string {
 }
 
 /**
- * Kinetic precision 6-lobe sculpted dial for `settings`.
+ * Kinetic precision 8-tooth sculpted gear for `settings`.
  */
 export function kineticDialPath(r: number): string {
   const cx = 12;
   const cy = 12;
-  const lobes = 6;
-  const rOut = 8.9;
-  const rIn = 6.9;
+  const lobes = 8;
+  const rOut = 9.0;
+  const rIn = 7.15;
   const pts: WeightedPoint[] = [];
 
   for (let i = 0; i < lobes * 2; i++) {
@@ -272,10 +272,18 @@ export function kineticDialPath(r: number): string {
     pts.push([
       cx + Math.cos(angle) * rad,
       cy + Math.sin(angle) * rad,
-      isPeak ? 0.65 : 0.55,
+      isPeak ? 0.58 : 0.48,
     ]);
   }
-  return smoothPoly(pts, Math.min(r * 0.85, 2.6), true, 0.44);
+  return smoothPoly(pts, Math.min(r * 0.72, 2.2), true, 0.42);
+}
+
+/**
+ * Compact 4-point Kinetic sparkle centered at (cx, cy) with given arm radius.
+ */
+export function kineticMiniSpark(cx: number, cy: number, arm = 3.2): string {
+  const w = arm * 0.28;
+  return `M ${fmt(cx)} ${fmt(cy - arm)} C ${fmt(cx)} ${fmt(cy - w)} ${fmt(cx + w)} ${fmt(cy)} ${fmt(cx + arm)} ${fmt(cy)} C ${fmt(cx + w)} ${fmt(cy)} ${fmt(cx)} ${fmt(cy + w)} ${fmt(cx)} ${fmt(cy + arm)} C ${fmt(cx)} ${fmt(cy + w)} ${fmt(cx - w)} ${fmt(cy)} ${fmt(cx - arm)} ${fmt(cy)} C ${fmt(cx - w)} ${fmt(cy)} ${fmt(cx)} ${fmt(cy - w)} ${fmt(cx)} ${fmt(cy - arm)} Z`;
 }
 
 /**
@@ -370,26 +378,30 @@ export function kineticMoonPath(r: number): string {
 }
 
 /**
- * Exact 45°-rotated nested 3-leg paperclip with mathematically equal track spacing
- * and tangent semicircular turns (outer bowl wraps cleanly around the centered inner wire).
+ * Exact 45°-rotated concentric 4-track paperclip with mathematically equal track spacing
+ * and tangent semicircular turns matching the full optical scale of `link`.
  */
 export function kineticPaperclipPath(): string {
-  const ox = 11.7;
-  const oy = 11.5;
-  const R = 3.6;
-  const rTop = R / 2;
+  const ox = 12.1;
+  const oy = 11.9;
+  const s = 2.65;
+  const rOut = s * 1.5;
+  const rTop = s;
+  const rIn = s * 0.5;
   const pt = (u: number, v: number) => {
     const x = ox + (u + v) * Math.SQRT1_2;
     const y = oy + (-u + v) * Math.SQRT1_2;
     return `${fmt(x)} ${fmt(y)}`;
   };
   return [
-    `M ${pt(3.1, -R)}`,
-    `L ${pt(-3.5, -R)}`,
-    `A ${fmt(R)} ${fmt(R)} 0 0 0 ${pt(-3.5, R)}`,
-    `L ${pt(5.2, R)}`,
-    `A ${fmt(rTop)} ${fmt(rTop)} 0 0 0 ${pt(5.2, 0)}`,
-    `L ${pt(-2.6, 0)}`,
+    `M ${pt(5.6, rOut)}`,
+    `L ${pt(-6.0, rOut)}`,
+    `A ${fmt(rOut)} ${fmt(rOut)} 0 0 1 ${pt(-6.0, -rOut)}`,
+    `L ${pt(5.8, -rOut)}`,
+    `A ${fmt(rTop)} ${fmt(rTop)} 0 0 1 ${pt(5.8, rIn)}`,
+    `L ${pt(-6.0, rIn)}`,
+    `A ${fmt(rIn)} ${fmt(rIn)} 0 0 1 ${pt(-6.0, -rIn)}`,
+    `L ${pt(1.2, -rIn)}`,
   ].join(' ');
 }
 

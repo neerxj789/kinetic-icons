@@ -94,7 +94,7 @@ export function GitHubRepoLink({
           ? `GitHub repository ${GITHUB_REPO_SLUG}, ${stars} stars`
           : `GitHub repository ${GITHUB_REPO_SLUG}`
       }
-      className={`h-9 px-2.5 sm:px-3 rounded-xl bg-kinetic-card border border-kinetic-border text-kinetic-ink hover:border-kinetic-ink transition-colors inline-flex items-center gap-1.5 text-xs font-semibold whitespace-nowrap shrink-0 ${className}`}
+      className={`h-9 px-2.5 sm:px-3 rounded-xl bg-kinetic-card border border-kinetic-border text-kinetic-ink hover:border-kinetic-ink transition-colors ${className.includes('hidden') ? '' : 'inline-flex'} items-center gap-1.5 text-xs font-semibold whitespace-nowrap shrink-0 ${className}`}
     >
       <KineticIcon id="github" size={15} strokeWidth={1.7} radius={2.5} />
       <span className="w-px h-3.5 bg-kinetic-border" aria-hidden="true" />
